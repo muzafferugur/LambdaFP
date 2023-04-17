@@ -19,6 +19,26 @@ public class Fp03 {
         liste.add("Tucker");
         liste.add("Benjamin");
         System.out.println(liste);
+        buyukHarfleYazdir01(liste);
+        System.out.println();
+        kucukHarfleYazdir(liste);
+        System.out.println();
+        //buyukHarfleYazdir2(liste);
+        uzunlugaGoreYazdir(liste);
+        System.out.println();
+        uzunlugagoreTerstenYazdir(liste);
+        System.out.println();
+        sonKarakteregoreTekrarsizSirala(liste);
+        System.out.println();
+        uzunlukveIlkHarfegoreSiralaYazdir(liste);
+        System.out.println();
+        //uzunluguBestenBuyukleriSil(liste);
+        // baslangiclariAyadaSonuNolaniSil(liste);
+        //baslangiclariAyadaSonuNolaniSil2(liste);
+        //uzunluguSekizIleOnArasiveoIleBiteniSil(liste);
+        System.out.println("uzunlugu12denAzMi = " + uzunlugu12denAzMi(liste));
+        System.out.println("xileBaslamiyorMu = " + xileBaslamiyorMu(liste));
+        System.out.println("rIleBitenVarMi= " + rIleBitenVarMi(liste));
 
     }
     // 1- ) Tüm elemanları büyük harf ile yazdıran bir method oluşturun.
@@ -43,13 +63,18 @@ public class Fp03 {
 
     }
 
+    public static void kucukHarfleYazdir(List<String> list) {
+
+        list.stream().map(String::toLowerCase).forEach(Utils::ayniSatirdaBosluklaYazdir);
+    }
+
     // 3- ) Elemanları uzunluklarına göre ters sıralayıp yazdıran bir method oluşturun.
-    public static void uzunlugunaGoreTersYazdir(List<String> list) {
+    public static void uzunlugagoreTerstenYazdir(List<String> list) {
         list.stream().sorted(Comparator.comparing(String::length).reversed()).forEach(Utils::ayniSatirdaBosluklaYazdir);
     }
 
     // 4- ) Elemanları son karakterlerine göre sıralayıp tekrarsız yazdıran bir method oluşturun.
-    public static void sonKaraktereGoreTekrarsizSirala(List<String> list) {
+    public static void sonKarakteregoreTekrarsizSirala(List<String> list) {
         list.stream().distinct().sorted(Comparator.comparing(Utils::sonKarekteriniAl)).forEach(Utils::ayniSatirdaBosluklaYazdir);
     }
 
@@ -57,9 +82,9 @@ public class Fp03 {
     5) Elemanları önce uzunluklarına göre ve sonra ilk karakterine göre sıralayıp
     yazdıran bir method oluşturun.
      */
-    public static void uzunlukVeIlkHarfeGoreSiralaYazdir(List<String> list) {
+    public static void uzunlukveIlkHarfegoreSiralaYazdir(List<String> list) {
         list.stream().sorted(Comparator.comparing(String::length).thenComparing(Utils::ilkKarekteriniAl)).forEach(Utils::ayniSatirdaBosluklaYazdir);
-
+        //==>thenComparing() sıralama için bir koşul daha belirtir
     }
     /*
     6- ) Uzunluğu 5'ten büyük olan elemanları silen bir method oluşturun.
@@ -113,5 +138,16 @@ public class Fp03 {
     public static boolean uzunlugu12denAzMi(List<String> list) {
         return list.stream().allMatch(t -> t.length() < 12);
 
+    }
+
+    //10-)Hiçbir elemanının 'X' ile başşlamadığını kontrol edin
+    public static boolean xileBaslamiyorMu(List<String> list) {
+        return list.stream().noneMatch(t -> t.startsWith("X"));
+    }
+    //11) Herhangi bir elemanın 'r' ile bitip bitmediğini kontrol eden bir method oluşturun.
+
+    public static boolean rIleBitenVarMi(List<String> list) {
+
+        return list.stream().anyMatch(t -> t.endsWith("r"));
     }
 }
